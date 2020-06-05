@@ -4,7 +4,7 @@ import { CharacterSheet } from "../../types/CharacterSheet";
 
 const initialState: State = {
     loading: false,
-    characterSheets: [],
+    characterSheets: {},
     error: undefined
 }
 
@@ -19,7 +19,7 @@ export default (state: State = initialState, action: Action): State => {
             return {
                 ...state,
                 loading: false,
-                characterSheets: action.payload as CharacterSheet[],
+                characterSheets: action.payload as { [id: string]: CharacterSheet },
             };
         case CHARACTER_SHEET_LIST_READ_FAILED:
             return {

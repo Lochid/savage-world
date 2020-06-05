@@ -6,7 +6,6 @@ import { CharacterSheet } from '../../types/CharacterSheet';
 
 function* readCharacterSheetListAsync() {
     
-    console.log('==============================');
     try {
         yield put(readCharSheetListPending());
         const data: CharacterSheet[] = yield call(readCharacterSheets);

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { State } from '../store/types';
 import { getCharacterSheetList, getCharacterSheetListLoading } from '../store/characterSheets/selectors';
 import { readCharSheetList } from '../store/characterSheets/actionCreators';
@@ -12,9 +13,9 @@ export default () => {
     useEffect(() => {
         if (!characterSheets.length && !loading)
             dispatch(readCharSheetList());
-    }, ['characterSheets', 'dispatch', 'loading']);
+    }, []);
 
-    return loading ? null : (<table>
+    return (<table>
         <thead>
             <tr>
                 <td>
@@ -30,17 +31,18 @@ export default () => {
         </thead>
         <tbody>
             {
-                characterSheets.map((characterSheet) => (<tr key={characterSheet.id}>
-                    <td>
-                        {characterSheet.id}
-                    </td>
-                    <td>
-                        {characterSheet.name}
-                    </td>
-                    <td>
-                        {characterSheet.player}
-                    </td>
-                </tr>))
+                Object.keys(characterSheets)
+                    .map((key) => (<tr key={characterSheets[+key].id}>
+                        <td>
+                            <Link to={`/char-sheet/${characterSheets[+key].id}`}>{characterSheets[+key].id}</Link>
+                        </td>
+                        <td>
+                            {characterSheets[+key].name}
+                        </td>
+                        <td>
+                            {characterSheets[+key].player}
+                        </td>
+                    </tr>))
             }
         </tbody>
     </table>);
