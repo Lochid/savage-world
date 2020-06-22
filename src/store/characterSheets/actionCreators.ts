@@ -1,4 +1,4 @@
-import { CHARACTER_SHEET_LIST_READ, CHARACTER_SHEET_LIST_READ_PENDING, CHARACTER_SHEET_LIST_READ_SUCCESS, CHARACTER_SHEET_LIST_READ_FAILED } from "./actions";
+import { CHARACTER_SHEET_LIST_READ, CHARACTER_SHEET_LIST_READ_PENDING, CHARACTER_SHEET_LIST_READ_SUCCESS, CHARACTER_SHEET_LIST_READ_FAILED, CHARACTER_SHEET_LIST_CLEAR } from "./actions";
 import { CharacterSheet } from "../../types/CharacterSheet";
 import { Action } from "./types";
 
@@ -18,4 +18,8 @@ export const readCharSheetListSuccess = (characterSheetList: CharacterSheet[]): 
 export const readCharSheetListFailed = (error: unknown): Action => ({
     type: CHARACTER_SHEET_LIST_READ_FAILED,
     payload: error
+});
+
+export const clearCharSheetList = (): Action => ({
+    type: CHARACTER_SHEET_LIST_CLEAR,
 });

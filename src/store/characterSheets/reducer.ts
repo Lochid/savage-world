@@ -1,5 +1,5 @@
 import { Action, State } from "./types";
-import { CHARACTER_SHEET_LIST_READ_PENDING, CHARACTER_SHEET_LIST_READ_FAILED, CHARACTER_SHEET_LIST_READ_SUCCESS } from "./actions";
+import { CHARACTER_SHEET_LIST_READ_PENDING, CHARACTER_SHEET_LIST_READ_FAILED, CHARACTER_SHEET_LIST_READ_SUCCESS, CHARACTER_SHEET_LIST_CLEAR } from "./actions";
 import { CharacterSheet } from "../../types/CharacterSheet";
 
 const initialState: State = {
@@ -10,6 +10,10 @@ const initialState: State = {
 
 export default (state: State = initialState, action: Action): State => {
     switch (action.type) {
+        case CHARACTER_SHEET_LIST_CLEAR:
+            return {
+                ...initialState
+            };
         case CHARACTER_SHEET_LIST_READ_PENDING:
             return {
                 ...state,

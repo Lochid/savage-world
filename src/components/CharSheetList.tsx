@@ -15,35 +15,38 @@ export default () => {
             dispatch(readCharSheetList());
     }, []);
 
-    return (<table>
-        <thead>
-            <tr>
-                <td>
-                    Id
+    return (<div>
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        Id
                 </td>
-                <td>
-                    Character
+                    <td>
+                        Character
                 </td>
-                <td>
-                    Player
+                    <td>
+                        Player
                 </td>
-            </tr>
-        </thead>
-        <tbody>
-            {
-                Object.keys(characterSheets)
-                    .map((key) => (<tr key={characterSheets[+key].id}>
-                        <td>
-                            <Link to={`/char-sheet/${characterSheets[+key].id}`}>{characterSheets[+key].id}</Link>
-                        </td>
-                        <td>
-                            {characterSheets[+key].name}
-                        </td>
-                        <td>
-                            {characterSheets[+key].player}
-                        </td>
-                    </tr>))
-            }
-        </tbody>
-    </table>);
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    Object.keys(characterSheets)
+                        .map((key) => (<tr key={characterSheets[+key].id}>
+                            <td>
+                                <Link to={`/char-sheet/${characterSheets[+key].id}`}>{characterSheets[+key].id}</Link>
+                            </td>
+                            <td>
+                                {characterSheets[+key].name}
+                            </td>
+                            <td>
+                                {characterSheets[+key].player}
+                            </td>
+                        </tr>))
+                }
+            </tbody>
+        </table>
+        <Link to={`/create-char-sheet`}>Create Char Sheet</Link>
+    </div>);
 }
