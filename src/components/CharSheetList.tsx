@@ -2,13 +2,19 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { State } from '../store/types';
-import { getCharacterSheetList, getCharacterSheetListLoading } from '../store/characterSheets/selectors';
-import { readCharSheetList } from '../store/characterSheets/actionCreators';
+import { getCharacterSheetList, getCharacterSheetListLoading, getCharacterSheetListDone } from '../store/characterSheets/selectors';
+import { readCharSheetList, clearCharSheetList, deleteCharSheet } from '../store/characterSheets/actionCreators';
 
 export default () => {
     const characterSheets = useSelector((state: State) => getCharacterSheetList(state));
     const loading = useSelector((state: State) => getCharacterSheetListLoading(state));
+    const done = useSelector((state: State) => getCharacterSheetListDone(state));
     const dispatch = useDispatch();
+
+    if (done && !loading) {
+        dispatch(clearCharSheetList());
+        dispatch(readCharSheetList());
+    }
 
     useEffect(() => {
         if (!characterSheets.length && !loading)
@@ -42,6 +48,9 @@ export default () => {
                             </td>
                             <td>
                                 {characterSheets[+key].player}
+                            </td>
+                            <td>
+                                {<button onClick={() => dispatch(deleteCharSheet(characterSheets[+key].id))}>Delete</button>}
                             </td>
                         </tr>))
                 }

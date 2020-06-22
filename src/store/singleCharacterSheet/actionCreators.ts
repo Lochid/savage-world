@@ -1,4 +1,12 @@
-import { CHARACTER_SHEET_NAME_UPDATE, CHARACTER_SHEET_PLAYER_UPDATE, CHARACTER_SHEET_CREATE, CHARACTER_SHEET_CREATE_PENDING, CHARACTER_SHEET_CREATE_SUCCESS, CHARACTER_SHEET_CREATE_FAILED } from "./actions";
+import {
+    CHARACTER_SHEET_NAME_UPDATE,
+    CHARACTER_SHEET_PLAYER_UPDATE,
+    CHARACTER_SHEET_CREATE,
+    CHARACTER_SHEET_CREATE_PENDING,
+    CHARACTER_SHEET_CREATE_SUCCESS,
+    CHARACTER_SHEET_CREATE_FAILED,
+    CHARACTER_SHEET_CLEAR
+} from "./actions";
 import { Action } from "./types";
 import { CharacterSheetUpdate } from "../../types/CharacterSheet";
 
@@ -28,5 +36,9 @@ export const createCharacterSheetSuccess = (): Action => ({
 export const createCharacterSheetFailed = (error: unknown): Action => ({
     type: CHARACTER_SHEET_CREATE_FAILED,
     payload: error
+});
+
+export const clearCharacterSheet = (): Action => ({
+    type: CHARACTER_SHEET_CLEAR,
 });
 

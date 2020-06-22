@@ -1,5 +1,12 @@
 import { Action, State } from "./types";
-import { CHARACTER_SHEET_NAME_UPDATE, CHARACTER_SHEET_PLAYER_UPDATE, CHARACTER_SHEET_CREATE_PENDING, CHARACTER_SHEET_CREATE_SUCCESS, CHARACTER_SHEET_CREATE_FAILED } from "./actions";
+import {
+    CHARACTER_SHEET_NAME_UPDATE,
+    CHARACTER_SHEET_PLAYER_UPDATE,
+    CHARACTER_SHEET_CREATE_PENDING,
+    CHARACTER_SHEET_CREATE_SUCCESS,
+    CHARACTER_SHEET_CREATE_FAILED,
+    CHARACTER_SHEET_CLEAR
+} from "./actions";
 
 const initialState: State = {
     id: -1,
@@ -37,6 +44,10 @@ export default (state: State = initialState, action: Action): State => {
             return {
                 ...state,
                 loading: false,
+            };
+        case CHARACTER_SHEET_CLEAR:
+            return {
+                ...initialState,
             };
         default:
             return state;

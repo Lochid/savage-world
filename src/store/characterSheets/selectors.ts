@@ -7,5 +7,8 @@ export const getCharacterSheetList = ({ characterSheets }: { characterSheets: St
 export const getCharacterSheetListLoading = ({ characterSheets }: { characterSheets: State }): boolean =>
     characterSheets?.loading;
 
+export const getCharacterSheetListDone = ({ characterSheets }: { characterSheets: State }): boolean =>
+    characterSheets?.done;
+
 export const getCharacterSheetById = ({ characterSheets }: { characterSheets: State }) => (id: string | number): CharacterSheet | null =>
     characterSheets?.characterSheets ? characterSheets?.characterSheets[id] : null;

@@ -3,6 +3,7 @@ import { CharacterSheet } from "../../types/CharacterSheet";
 export interface State {
     characterSheets: { [id: string]: CharacterSheet };
     loading: boolean;
+    done: boolean;
     error: unknown;
 }
 

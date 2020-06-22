@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { State } from '../store/types';
 import { getCharacterSheetName, getCharacterSheetPlayer, getCharacterSheetLoading, getCharacterSheetDone } from '../store/singleCharacterSheet/selectors';
-import { updateCharacterSheetName, updateCharacterSheetPlayer, createCharacterSheet } from '../store/singleCharacterSheet/actionCreators';
+import { updateCharacterSheetName, updateCharacterSheetPlayer, createCharacterSheet, clearCharacterSheet } from '../store/singleCharacterSheet/actionCreators';
 import { clearCharSheetList } from '../store/characterSheets/actionCreators';
 
 export default (props: any) => {
@@ -15,6 +15,7 @@ export default (props: any) => {
 
     if (done && !loading) {
         dispatch(clearCharSheetList());
+        dispatch(clearCharacterSheet());
         const history = useHistory();
         history.goBack();
     }

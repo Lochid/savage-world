@@ -1,1 +1,1 @@
-export { readCharacterSheets, createCharacterSheet } from './indexedDB';
+export { readCharacterSheets, createCharacterSheet, deleteCharacterSheet } from './indexedDB';
