@@ -5,10 +5,14 @@ import {
     CHARACTER_SHEET_CREATE_PENDING,
     CHARACTER_SHEET_CREATE_SUCCESS,
     CHARACTER_SHEET_CREATE_FAILED,
-    CHARACTER_SHEET_CLEAR
+    CHARACTER_SHEET_CLEAR,
+    CHARACTER_SHEET_UPDATE,
+    CHARACTER_SHEET_UPDATE_PENDING,
+    CHARACTER_SHEET_UPDATE_SUCCESS,
+    CHARACTER_SHEET_UPDATE_FAILED,
 } from "./actions";
 import { Action } from "./types";
-import { CharacterSheetUpdate } from "../../types/CharacterSheet";
+import { CharacterSheetUpdate, CharacterSheet } from "../../types/CharacterSheet";
 
 export const updateCharacterSheetName = (name: string): Action => ({
     type: CHARACTER_SHEET_NAME_UPDATE,
@@ -38,7 +42,24 @@ export const createCharacterSheetFailed = (error: unknown): Action => ({
     payload: error
 });
 
+export const updateCharacterSheet = (payload: CharacterSheet): Action => ({
+    type: CHARACTER_SHEET_UPDATE,
+    payload
+});
+
+export const updateCharacterSheetPending = (): Action => ({
+    type: CHARACTER_SHEET_UPDATE_PENDING
+});
+
+export const updateCharacterSheetSuccess = (): Action => ({
+    type: CHARACTER_SHEET_UPDATE_SUCCESS,
+});
+
+export const updateCharacterSheetFailed = (error: unknown): Action => ({
+    type: CHARACTER_SHEET_UPDATE_FAILED,
+    payload: error
+});
+
 export const clearCharacterSheet = (): Action => ({
     type: CHARACTER_SHEET_CLEAR,
 });
-

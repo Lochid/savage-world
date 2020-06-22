@@ -26,5 +26,6 @@ export default () => {
             <span>Player: </span>
             <span>{characterSheet.player}</span>
         </div>
+        <Link to={`/update-char-sheet/${characterSheet.id}`}>Update</Link>
     </div>)
 }

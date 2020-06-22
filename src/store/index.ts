@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import reducer from './rootReducer';
 import { watchReadCharacterSheetList, watchDeleteCharacterSheet } from './characterSheets/saga';
-import { watchCreateCharacterSheet } from './singleCharacterSheet/saga';
+import { watchCreateCharacterSheet, watchUpdateCharacterSheet } from './singleCharacterSheet/saga';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -12,4 +12,5 @@ const store = createStore(
 sagaMiddleware.run(watchReadCharacterSheetList);
 sagaMiddleware.run(watchCreateCharacterSheet);
 sagaMiddleware.run(watchDeleteCharacterSheet);
+sagaMiddleware.run(watchUpdateCharacterSheet);
 export default store;

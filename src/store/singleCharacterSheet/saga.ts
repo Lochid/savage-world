@@ -1,8 +1,14 @@
 import { takeEvery, put, call } from 'redux-saga/effects'
-import { CHARACTER_SHEET_CREATE } from "./actions";
-import { createCharacterSheetPending, createCharacterSheetSuccess, createCharacterSheetFailed } from './actionCreators';
+import { CHARACTER_SHEET_CREATE, CHARACTER_SHEET_UPDATE } from "./actions";
+import {
+    createCharacterSheetPending, createCharacterSheetSuccess, createCharacterSheetFailed,
+    updateCharacterSheetPending,
+    updateCharacterSheetSuccess,
+    updateCharacterSheetFailed
+} from './actionCreators';
 import { createCharacterSheet } from '../../providers';
-import { CharacterSheetUpdate } from '../../types/CharacterSheet';
+import { CharacterSheetUpdate, CharacterSheet } from '../../types/CharacterSheet';
+import updateCharacterSheet from '../../providers/indexedDB/updateCharacterSheet';
 
 function* createCharacterSheetAsync({ payload }: { type: string, payload: CharacterSheetUpdate }) {
     try {
@@ -14,6 +20,20 @@ function* createCharacterSheetAsync({ payload }: { type: string, payload: Charac
     }
 }
 
+function* updateCharacterSheetAsync({ payload }: { type: string, payload: CharacterSheet }) {
+    try {
+        yield put(updateCharacterSheetPending());
+        yield call(() => updateCharacterSheet(payload));
+        yield put(updateCharacterSheetSuccess());
+    } catch (error) {
+        yield put(updateCharacterSheetFailed(error));
+    }
+}
+
 export function* watchCreateCharacterSheet() {
     yield takeEvery(CHARACTER_SHEET_CREATE, createCharacterSheetAsync);
+}
+
+export function* watchUpdateCharacterSheet() {
+    yield takeEvery(CHARACTER_SHEET_UPDATE, updateCharacterSheetAsync);
 }

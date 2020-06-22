@@ -10,6 +10,7 @@ import store from './store';
 import CharSheetList from './components/CharSheetList';
 import CharSheet from './components/CharSheet';
 import CreateCharSheet from './components/CreateCharSheet';
+import UpdateCharSheet from './components/UpdateCharSheet';
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <Route path="/create-char-sheet">
             <CreateCharSheet />
+          </Route>
+          <Route path="/update-char-sheet/:id">
+            <UpdateCharSheet />
           </Route>
           <Redirect from='/' to='/char-sheet-list' />
         </Switch>
