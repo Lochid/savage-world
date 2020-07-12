@@ -1,4 +1,16 @@
-import { Action, State } from "./types";
+import {
+    Action,
+    State,
+    CharacterSheetNameUpdateAction,
+    CharacterSheetPlayerUpdateAction,
+    CharacterSheetCreatePendingAction,
+    CharacterSheetCreateSuccessAction,
+    CharacterSheetCreateFailedAction,
+    CharacterSheetUpdatePendingAction,
+    CharacterSheetUpdateSuccessAction,
+    CharacterSheetUpdateFailedAction,
+    CharacterSheetClearAction
+} from "./types";
 import {
     CHARACTER_SHEET_NAME_UPDATE,
     CHARACTER_SHEET_PLAYER_UPDATE,
@@ -19,56 +31,66 @@ const initialState: State = {
     done: false,
     error: undefined
 }
+const updateCharacterSheetName = (state: State, action: CharacterSheetNameUpdateAction): State => ({
+    ...state,
+    name: action.payload
+});
 
-export default (state: State = initialState, action: Action): State => {
-    switch (action.type) {
-        case CHARACTER_SHEET_NAME_UPDATE:
-            return {
-                ...state,
-                name: action.payload as string
-            };
-        case CHARACTER_SHEET_PLAYER_UPDATE:
-            return {
-                ...state,
-                player: action.payload as string
-            };
-        case CHARACTER_SHEET_CREATE_PENDING:
-            return {
-                ...state,
-                loading: true,
-                done: false,
-            };
-        case CHARACTER_SHEET_CREATE_SUCCESS:
-            return {
-                ...initialState,
-                done: true
-            };
-        case CHARACTER_SHEET_CREATE_FAILED:
-            return {
-                ...state,
-                loading: false,
-            };
-        case CHARACTER_SHEET_UPDATE_PENDING:
-            return {
-                ...state,
-                loading: true,
-                done: false,
-            };
-        case CHARACTER_SHEET_UPDATE_SUCCESS:
-            return {
-                ...initialState,
-                done: true
-            };
-        case CHARACTER_SHEET_UPDATE_FAILED:
-            return {
-                ...state,
-                loading: false,
-            };
-        case CHARACTER_SHEET_CLEAR:
-            return {
-                ...initialState,
-            };
-        default:
-            return state;
-    }
-};
+const updateCharacterSheetPlayer = (state: State, action: CharacterSheetPlayerUpdateAction): State => ({
+    ...state,
+    player: action.payload
+});
+
+const createCharacterSheetPending = (state: State, action: CharacterSheetCreatePendingAction): State => ({
+    ...state,
+    loading: true,
+    done: false,
+});
+
+const createCharacterSheetSuccess = (state: State, action: CharacterSheetCreateSuccessAction): State => ({
+    ...initialState,
+    done: true
+});
+
+const createCharacterSheetFailed = (state: State, action: CharacterSheetCreateFailedAction): State => ({
+    ...state,
+    loading: false,
+    error: action.payload
+});
+
+const updateCharacterSheetPending = (state: State, action: CharacterSheetUpdatePendingAction): State => ({
+    ...state,
+    loading: true,
+    done: false,
+});
+
+const updateCharacterSheetSuccess = (state: State, action: CharacterSheetUpdateSuccessAction): State => ({
+    ...initialState,
+    done: true
+});
+
+const updateCharacterSheetFailed = (state: State, action: CharacterSheetUpdateFailedAction): State => ({
+    ...state,
+    loading: false,
+    error: action.payload
+});
+
+const clearCharacterSheet = (state: State, action: CharacterSheetClearAction): State => ({
+    ...initialState,
+});
+
+const reducers: { [type: string]: any } = {
+
+    [CHARACTER_SHEET_NAME_UPDATE]: updateCharacterSheetName,
+    [CHARACTER_SHEET_PLAYER_UPDATE]: updateCharacterSheetPlayer,
+    [CHARACTER_SHEET_CREATE_PENDING]: createCharacterSheetPending,
+    [CHARACTER_SHEET_CREATE_SUCCESS]: createCharacterSheetSuccess,
+    [CHARACTER_SHEET_CREATE_FAILED]: createCharacterSheetFailed,
+    [CHARACTER_SHEET_UPDATE_PENDING]: updateCharacterSheetPending,
+    [CHARACTER_SHEET_UPDATE_SUCCESS]: updateCharacterSheetSuccess,
+    [CHARACTER_SHEET_UPDATE_FAILED]: updateCharacterSheetFailed,
+    [CHARACTER_SHEET_CLEAR]: clearCharacterSheet,
+}
+
+export default (state: State = initialState, action: Action): State =>
+    reducers[action.type] ? reducers[action.type](state, action) : state;
