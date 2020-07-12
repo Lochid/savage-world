@@ -1,4 +1,15 @@
 import {
+    CharacterSheetListReadAction,
+    CharacterSheetListReadPendingAction,
+    CharacterSheetListReadSuccessAction,
+    CharacterSheetListReadFailedAction,
+    CharacterSheetDeleteAction,
+    CharacterSheetDeletePendingAction,
+    CharacterSheetDeleteSuccessAction,
+    CharacterSheetDeleteFailedAction,
+    CharacterSheetListClearAction,
+} from "./types";
+import {
     CHARACTER_SHEET_LIST_READ,
     CHARACTER_SHEET_LIST_READ_PENDING,
     CHARACTER_SHEET_LIST_READ_SUCCESS,
@@ -10,44 +21,43 @@ import {
     CHARACTER_SHEET_LIST_CLEAR
 } from "./actions";
 import { CharacterSheet } from "../../types/CharacterSheet";
-import { Action } from "./types";
 
-export const readCharSheetList = (): Action => ({
+export const readCharSheetList = (): CharacterSheetListReadAction => ({
     type: CHARACTER_SHEET_LIST_READ
 });
 
-export const readCharSheetListPending = (): Action => ({
+export const readCharSheetListPending = (): CharacterSheetListReadPendingAction => ({
     type: CHARACTER_SHEET_LIST_READ_PENDING
 });
 
-export const readCharSheetListSuccess = (characterSheetList: CharacterSheet[]): Action => ({
+export const readCharSheetListSuccess = (characterSheetList: CharacterSheet[]): CharacterSheetListReadSuccessAction => ({
     type: CHARACTER_SHEET_LIST_READ_SUCCESS,
     payload: characterSheetList
 });
 
-export const readCharSheetListFailed = (error: unknown): Action => ({
+export const readCharSheetListFailed = (error: unknown): CharacterSheetListReadFailedAction => ({
     type: CHARACTER_SHEET_LIST_READ_FAILED,
     payload: error
 });
 
-export const deleteCharSheet = (id: number): Action => ({
+export const deleteCharSheet = (id: number): CharacterSheetDeleteAction => ({
     type: CHARACTER_SHEET_DELETE,
     payload: id
 });
 
-export const deleteCharSheetPending = (): Action => ({
+export const deleteCharSheetPending = (): CharacterSheetDeletePendingAction => ({
     type: CHARACTER_SHEET_DELETE_PENDING
 });
 
-export const deleteCharSheetSuccess = (): Action => ({
+export const deleteCharSheetSuccess = (): CharacterSheetDeleteSuccessAction => ({
     type: CHARACTER_SHEET_DELETE_SUCCESS,
 });
 
-export const deleteCharSheetFailed = (error: unknown): Action => ({
+export const deleteCharSheetFailed = (error: unknown): CharacterSheetDeleteFailedAction => ({
     type: CHARACTER_SHEET_DELETE_FAILED,
     payload: error
 });
 
-export const clearCharSheetList = (): Action => ({
+export const clearCharSheetList = (): CharacterSheetListClearAction => ({
     type: CHARACTER_SHEET_LIST_CLEAR,
 });
