@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { State } from '../store/types';
@@ -16,7 +16,7 @@ export default () => {
             dispatch(readCharSheetList());
     });
 
-    return !characterSheet || loading ? null : (<div>
+    return useMemo(() => (!characterSheet || loading ? null : <div>
         <Link to="/char-sheet-list">Back</Link>
         <div>
             <span>Name: </span>
@@ -27,5 +27,5 @@ export default () => {
             <span>{characterSheet.player}</span>
         </div>
         <Link to={`/update-char-sheet/${characterSheet.id}`}>Update</Link>
-    </div>)
+    </div>), [characterSheet, loading])
 }

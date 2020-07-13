@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams, useHistory } from 'react-router-dom';
 import { State } from '../store/types';
@@ -33,7 +33,7 @@ export default () => {
         history.goBack();
     }
 
-    return !characterSheet || loading ? null : (<div>
+    return useMemo(() => !characterSheet || loading ? null : (<div>
         <Link to="/char-sheet-list">Back</Link>
         <div>
             <span>Name: </span>
@@ -48,5 +48,5 @@ export default () => {
             name,
             player
         }))}>Update</button>
-    </div>)
+    </div>), [id, name, player, loading]);
 }
