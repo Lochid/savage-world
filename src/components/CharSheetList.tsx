@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { State } from '../store/types';
 import { getCharacterSheetList, getCharacterSheetListLoading, getCharacterSheetListDone } from '../store/characterSheets/selectors';
 import { readCharSheetList, clearCharSheetList, deleteCharSheet } from '../store/characterSheets/actionCreators';
+import { Row } from './Row';
+import { Cell } from './Cell';
 
 export default () => {
     const characterSheets = useSelector((state: State) => getCharacterSheetList(state));
@@ -22,40 +24,36 @@ export default () => {
     }, []);
 
     return (<div>
-        <table>
-            <thead>
-                <tr>
-                    <td>
-                        Id
-                </td>
-                    <td>
-                        Character
-                </td>
-                    <td>
-                        Player
-                </td>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    Object.keys(characterSheets)
-                        .map((key) => (<tr key={characterSheets[+key].id}>
-                            <td>
-                                <Link to={`/char-sheet/${characterSheets[+key].id}`}>{characterSheets[+key].id}</Link>
-                            </td>
-                            <td>
-                                {characterSheets[+key].name}
-                            </td>
-                            <td>
-                                {characterSheets[+key].player}
-                            </td>
-                            <td>
-                                {<button onClick={() => dispatch(deleteCharSheet(characterSheets[+key].id))}>Delete</button>}
-                            </td>
-                        </tr>))
-                }
-            </tbody>
-        </table>
+        <Row>
+            <Cell>
+                Id
+            </Cell>
+            <Cell>
+                Character
+            </Cell>
+            <Cell>
+                Player
+            </Cell>
+            <Cell>
+            </Cell>
+        </Row>
+        {
+            Object.keys(characterSheets)
+                .map((key) => (<Row key={characterSheets[+key].id}>
+                    <Cell>
+                        <Link to={`/char-sheet/${characterSheets[+key].id}`}>{characterSheets[+key].id}</Link>
+                    </Cell>
+                    <Cell>
+                        {characterSheets[+key].name}
+                    </Cell>
+                    <Cell>
+                        {characterSheets[+key].player}
+                    </Cell>
+                    <Cell>
+                        {<button onClick={() => dispatch(deleteCharSheet(characterSheets[+key].id))}>Delete</button>}
+                    </Cell>
+                </Row>))
+        }
         <Link to={`/create-char-sheet`}>Create Char Sheet</Link>
     </div>);
 }
